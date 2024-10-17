@@ -19,4 +19,28 @@ class UserController extends BaseController {
         ]);
     }
 
+    public static function addUser() {
+       
+
+        $user = new User();
+
+        $user->first_name = $_POST['first_name'];
+        $user->last_name = $_POST['last_name'];
+        $user->email = $_POST['email'];
+
+        $succes = $user->addUser();
+
+        if($succes) {
+            header("Location: /users");
+        } else {
+            echo 'Er is iets misgegaan';
+        }
+
+        
+    }
+
+    
+
+    
+
 }

@@ -7,22 +7,32 @@
     <title><?= ($title ?? '') . ' ' . $_ENV['SITE_NAME'] ?></title>
     <link rel="stylesheet" href="/css/main.css?v=<?php if( $_ENV['DEV_MODE'] == "true" ) { echo time(); }; ?>">
 </head>
-<body>
-    <div class="brand">BrandName</div>
+<body class="font-poppins">
 
-    <nav>
-        <a href="/">Home</a>
-        <a href="#">item 2</a>
-        <a href="#">item 3</a>
-        <a href="#">item 4</a>
-    </nav>
+    <header class="bg-gray-400 text-white p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <img src="images/logo.png" class="w-40" alt="">
 
-    <main>
+            <a href="/" class="text-black">Home</a>
+            <a href="/users" class="text-black">Users</a>
+            <a href="/items" class="text-black">Items</a>
+            <a href="/transactions" class="text-black">transactions</a>
+        </nav>
+    </header>
+   
+    <main class="p-2">
         <?= $content; ?>
     </main>
+
     
-    <footer>
-        &copy; <?= date('Y'); ?> - BrandName
-    </footer>
+    
+
+
+    
+
+  
+   
+    
+   
 </body>
 </html>
