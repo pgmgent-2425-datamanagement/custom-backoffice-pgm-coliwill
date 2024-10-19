@@ -33,7 +33,7 @@ class UserController extends BaseController {
         if($succes) {
             header("Location: /users");
         } else {
-            echo 'Er is iets misgegaan';
+            echo 'Something went wrong';
         }
 
         

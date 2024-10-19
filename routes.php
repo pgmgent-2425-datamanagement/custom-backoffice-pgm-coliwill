@@ -8,6 +8,7 @@ $router->get('/', 'HomeController@index');
 $router->get('/', 'UserController@index');
 $router->get('/users', 'UserController@index');
 $router->post('/users/add', 'UserController@addUser');
+$router->post('/users/edit', 'UserController@editUser');
 
 
 $router->get('/items', 'ItemController@index');

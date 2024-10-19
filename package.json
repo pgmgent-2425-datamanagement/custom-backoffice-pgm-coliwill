@@ -7,6 +7,6 @@
   },
   "scripts": {
     "build:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/main.css --watch",
-    "watch": "browser-sync start --config bs-config.js && npm build:css"
+    "watch": "browser-sync start --config bs-config.js && npm run build:css"
   }
 }
