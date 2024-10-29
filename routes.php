@@ -20,3 +20,4 @@ $router->get('/items', 'ItemController@index');
 $router->get('/', 'ItemController@index');
 $router->get('/items/edit', 'ItemController@GetOneItem');
 $router->post('/items/edit', 'ItemController@editItem');
+$router->post('/items/delete', 'ItemController@deleteItem');

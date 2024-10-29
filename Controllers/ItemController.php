@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Item;
+use User;
 
 class ItemController extends BaseController {
 
@@ -24,10 +25,13 @@ class ItemController extends BaseController {
     public static function GetOneItem() {
         $itemId = $_GET['id'] ?? null;
         $findItem = Item::find($itemId);
+        $users = User::all();
+
         
         self::loadView('items/edit', [
             'title' => 'Edit item',
-            'item' => $findItem
+            'item' => $findItem,
+            'users' => $users
         ]);
         }
 
@@ -53,6 +57,7 @@ class ItemController extends BaseController {
             $item->description = $_POST['description'];
             $item->price = $_POST['price'];
             $item->available = $_POST['available'];
+            $item->owner_id = $_POST['owner_id'];
         
             // Save the updated item to the database
             $success = $item->updateItem();
@@ -65,6 +70,37 @@ class ItemController extends BaseController {
                 echo "Something went wrong.";
             }
         }
+
+        public static function deleteItem() {
+            // Get the item ID from the POST request
+            $itemId = $_POST['item_id'] ?? null;
+        
+            if (!$itemId) {
+                echo "item ID not provided.";
+                return;
+            }
+        
+            // Find the item in the database
+            $item = Item::find($itemId);
+        
+            if (!$item) {
+                echo "item not found.";
+                return;
+            }
+        
+            // Delete the item from the database
+            $success = $item->deleteItem();
+        
+            // Check if the deletion was successful
+            if ($success) {
+                // Redirect to the users page after successful deletion
+                header("Location: /items");
+                exit;
+            } else {
+                echo "Something went wrong.";
+            }
+        }
+
 
     
 }

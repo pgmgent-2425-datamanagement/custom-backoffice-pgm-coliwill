@@ -42,7 +42,7 @@ class Item extends BaseModel {
 }
 
 public function updateItem() {
-  $sql = "UPDATE items SET name = :name, description = :description, price = :price, available = :available WHERE item_id = :item_id";
+  $sql = "UPDATE items SET name = :name, description = :description, price = :price, available = :available, owner_id = :owner_id WHERE item_id = :item_id";
   $pdo_statement = $this->db->prepare($sql);
   $success = $pdo_statement->execute([
       ':name' => $this->name,
@@ -50,6 +50,17 @@ public function updateItem() {
       ':price' => $this->price,
       ':available' => $this->available,
       ':item_id' => $this->item_id,
+      ':owner_id' => $this->owner_id
+  ]);
+
+  return $success;
+}
+
+public function deleteItem() {
+  $sql = "DELETE FROM items WHERE item_id = :item_id";
+  $pdo_statement = $this->db->prepare($sql);
+  $success = $pdo_statement->execute([
+      ':item_id' => $this->item_id
   ]);
 
   return $success;

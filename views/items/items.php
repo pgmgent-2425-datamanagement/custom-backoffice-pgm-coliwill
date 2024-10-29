@@ -40,7 +40,7 @@
             <a class="bg-blue-500 px-2 rounded-md" href="/items/edit?id=<?=$item->item_id?>">Edit</a>
 
             <!-- Form for delete action -->
-            <form action="/users/delete" method="POST" style="display:inline;">
+            <form action="/items/delete" method="POST" style="display:inline;">
                 <input type="hidden" name="item_id" value="<?= $item->item_id ?>">
                 <button type="submit" class="bg-red-500 px-2 rounded-md">Delete</button>
             </form>
