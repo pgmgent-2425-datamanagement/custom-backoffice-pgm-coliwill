@@ -22,21 +22,21 @@ class BaseModel {
             $single = strtolower( $this->getClassName(get_called_class()));
             switch(substr($single, -1)) {
                 case 'y':
-                    //for example: Category model => categories table
                     $this->table = substr($single, 0, -1) . 'ies';
                     break;
                 case 's':
-                    //for example: News model => news table
                     $this->table = $single;
                     break;
                 default:
-                    //for example: User model => users table
-                    $this->table .= $single . 's';
+                    $this->table = $single . 's';
             }
         }
+    
+        // Dynamically set the primary key based on table name
         if(!isset($this->pk)) {
-            $this->pk = 'id';
+            $this->pk = $this->table . '_id';  // Assumes the primary key is <table>_id (e.g., user_id for users table)
         }
+    
         if(!isset($this->db)) {
             global $db;
             $this->db = $db;
@@ -87,15 +87,17 @@ class BaseModel {
     }
 
     //static method to call like: Model::deleteById(1);
-    private function deleteById ( int $id ) {
-        $sql = 'DELETE FROM `' . $this->table . '` WHERE `' . $id . '` = :p_id';
+    private function deleteById(int $id) {
+        $sql = 'DELETE FROM `' . $this->table . '` WHERE `' . $this->pk . '` = :p_id';
         $pdo_statement = $this->db->prepare($sql);
-        return $pdo_statement->execute( [ ':p_id' => $id ] );
+        return $pdo_statement->execute([':p_id' => $id]);
     }
+    
 
     //public method to call like: $my_model->delete();
-    public function delete () {
-        $this->deleteById( $this->pk );
+    public function delete() {
+        // Pass the primary key value, not the column name
+        $this->deleteById($this->{$this->pk});
     }
 
     private function getClassName($classname) {
