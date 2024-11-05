@@ -17,7 +17,7 @@
 
 
       <form action="/items/edit" method="POST">
-    <!-- Hidden field to pass user_id -->
+ 
     <input type="hidden" name="item_id" value="<?= $item->item_id ?>">
 
     <div class="mb-4">

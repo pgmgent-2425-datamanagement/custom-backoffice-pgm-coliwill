@@ -66,4 +66,17 @@ public function deleteItem() {
   return $success;
 }
 
+public function addItem() {
+  $sql = "INSERT INTO items (name, description, available, price) VALUES (:name, :description, :available, :price)";
+  $pdo_statement = $this->db->prepare($sql);
+  $succes = $pdo_statement->execute([
+    ':name' => $this->name,
+    ':description' => $this->description,
+    ':available' => $this->available,
+    ':price' => $this->price
+  ]);
+
+  return $succes;
+}
+
 }

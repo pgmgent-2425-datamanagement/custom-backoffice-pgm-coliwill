@@ -11,7 +11,10 @@
 
     <header class="bg-gray-400 text-white p-4">
         <nav class="container mx-auto flex justify-between items-center">
-            <img src="images/logo.png" class="w-40" alt="">
+            <a href="/">
+                <img src="/images/logo.png" class="w-40" alt="">
+            </a>
+          
 
             <a href="/" class="text-black">Home</a>
             <a href="/users" class="text-black">Users</a>

@@ -53,4 +53,8 @@
 
     
 </div>
-<button id="addUserButton" class="bg-blue-500 p-4 rounded-md">Add item</button>
+<button id="addItemButton" class="bg-blue-500 p-4 rounded-md">Add item</button>
+
+<?php include __DIR__ . '/../components/addItemOverlay.php'; ?>
+
+<script src="../js/addItemOverlay.js"></script>

@@ -101,6 +101,25 @@ class ItemController extends BaseController {
             }
         }
 
+        public static function addItem() {
+            
+            $item = New Item();
+
+            $item->name = $_POST['name'];
+            $item->description = $_POST['description'];
+            $item->available = $_POST['available'];
+            $item->price = $_POST['price'];
+    
+            $succes = $item->addItem();
+
+            if($succes) {
+                header("Location: /items");
+            } else {
+                echo 'Something went wrong';
+            }
+    
+        }
+
 
     
 }
