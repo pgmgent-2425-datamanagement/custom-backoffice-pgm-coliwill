@@ -11,7 +11,7 @@ class HomeController extends BaseController {
 
         $itemModel = new Item();
         $availableItems = $itemModel->available();
-
+        $unavailableItems = $itemModel->unavailable();
         $users = User::all();
        
        
@@ -19,7 +19,8 @@ class HomeController extends BaseController {
         self::loadView('/home', [
             'title' => 'Homepage',
             "users" => $users,
-            "availableItems" => $availableItems
+            "availableItems" => $availableItems,
+            "unavailableItems" => $unavailableItems
         ]);
     }
 

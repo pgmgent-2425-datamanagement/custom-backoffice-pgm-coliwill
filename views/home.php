@@ -1,19 +1,34 @@
-<?php include "components/totalUsers.php"  ?>
 
-    <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div class="px-6 py-4">
-            <div class="flex flex-col gap-10 items-start">
-                <p class="text-sm text-gray-700 leading-7 font-normal">
-                    Available items
-                </p>
-                <div class="text-4xl text-black leading-7 font-semibold">
-                <?= $availableItems[0]->available_items ?>
-                    
 
-                </div>
-            </div>
-        </div>
+
+<div class="flex justify-center items-center">
+    <div class="w-60 h-60"> 
+        <canvas id="myChart" class="w-full h-full"></canvas>
     </div>
+    <?php include "components/totalUsers.php"  ?>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['available items', 'unavailable items', ],
+      datasets: [{
+        data: [<?= $availableItems[0]->available_items ?>, <?= $unavailableItems[0]->unavailable_items ?>],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 

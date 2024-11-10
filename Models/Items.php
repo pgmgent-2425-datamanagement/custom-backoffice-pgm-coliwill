@@ -20,6 +20,20 @@ class Item extends BaseModel {
 
   }
 
+  public function unavailable() {
+    $sql = "SELECT COUNT(*) AS unavailable_items FROM items WHERE available = 0;
+";
+    $pdo_statement = $this->db->prepare($sql);
+    $pdo_statement->execute();
+  
+    $db_items = $pdo_statement->fetchAll();
+
+   
+  
+    return self::castToModel($db_items);
+
+  }
+
   public static function whereOwner($user_id) {
     // Create an instance of the Item class
     $obj = new static();  // or new self() for this class

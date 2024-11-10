@@ -19,7 +19,7 @@
             <h2 class="text-2xl font-bold mb-5"><?= $user->first_name ?> <?= $user->last_name ?></h2>
             <p>Email: <?= $user->email ?></p>
 
-            <!-- Items Owned by User -->
+         
             <h3 class="text-xl font-semibold mt-5">Items Owned</h3>
             <ul>
                 <?php foreach ($itemsOwned as $item): ?>
@@ -27,7 +27,7 @@
                 <?php endforeach; ?>
             </ul>
 
-            <!-- Items Borrowed by User -->
+          
             <h3 class="text-xl font-semibold mt-5">Items Borrowed</h3>
             <ul>
                 <?php foreach ($itemsBorrowed as $item): ?>
