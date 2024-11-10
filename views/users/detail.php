@@ -10,7 +10,12 @@
     <div class="container mx-auto mt-10">
         <div class="max-w-4xl mx-auto bg-white p-5 rounded-md shadow-sm">
             
-            <!-- User Information -->
+        <?php if ($userImage): ?>
+    <img src="../<?= $userImage->path ?>" alt="User Image" class="w-32 h-32 rounded-full">
+    
+<?php else: ?>
+    <p>No image uploaded.</p>
+<?php endif; ?>
             <h2 class="text-2xl font-bold mb-5"><?= $user->first_name ?> <?= $user->last_name ?></h2>
             <p>Email: <?= $user->email ?></p>
 

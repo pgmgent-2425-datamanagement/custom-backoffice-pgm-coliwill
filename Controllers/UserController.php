@@ -24,23 +24,35 @@ class UserController extends BaseController {
     }
 
     public static function addUser() {
-       
-
         $user = new User();
-
         $user->first_name = $_POST['first_name'];
         $user->last_name = $_POST['last_name'];
         $user->email = $_POST['email'];
-
-        $succes = $user->addUser();
-
-        if($succes) {
+    
+        $success = $user->addUser();
+    
+        if ($success) {
+            $userId = $success; // Use the returned last inserted ID
+        
+            // Handle the image upload
+            if (isset($_FILES['user_image']) && $_FILES['user_image']['error'] === 0) {
+                $uploadDir = "uploads/";
+                $imageName = uniqid() . '_' . basename($_FILES['user_image']['name']);
+                $imagePath = $uploadDir . $imageName;
+            
+                // Attempt to move the uploaded file
+                if (move_uploaded_file($_FILES['user_image']['tmp_name'], $imagePath)) {
+                    User::saveImage($userId, $imagePath);
+                    echo 'Image uploaded successfully!';
+                } else {
+                    echo 'Failed to move uploaded file.';
+                }
+            }
+        
             header("Location: /users");
         } else {
-            echo 'Something went wrong';
+            echo 'Something went wrong.';
         }
-
-        
     }
 
     public static function GetOneUser() {
@@ -53,15 +65,7 @@ class UserController extends BaseController {
         ]);
         }
 
-    public static function GetDetailUser() {
-        $userId = $_GET['id'] ?? null;
-        $findUser = User::find($userId);
-        
-        self::loadView('users/detail', [
-            'title' => 'Detail user',
-            'user' => $findUser
-        ]);
-    }
+    
 
         public static function editUser() {
             // Get the user ID from the form (or URL if needed)
@@ -139,6 +143,7 @@ class UserController extends BaseController {
             $user = User::find($userId);
     
             // Fetch items owned, lent, borrowed, reviews
+            $userImage = User::GetUserImage($userId);
             $itemsOwned = Item::whereOwner($userId);
             $itemsBorrowed = Transaction::getBorrowedItems($userId);
             $itemsLent = Transaction::getLentItems($userId);
@@ -147,12 +152,14 @@ class UserController extends BaseController {
     
             // Load the view and pass the data
             self::loadView('users/detail', [
+
                 'user' => $user,
                 'itemsOwned' => $itemsOwned,
                 'itemsBorrowed' => $itemsBorrowed,
                 'itemsLent' => $itemsLent,
                 'reviewsGiven' => $reviewsGiven,
-                'reviewsReceived' => $reviewsReceived
+                'reviewsReceived' => $reviewsReceived,
+                'userImage' => $userImage
             ]);
 
    

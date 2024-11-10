@@ -42,6 +42,10 @@ class BaseModel {
             $this->db = $db;
         }
     }
+    public static function getDb() {
+        global $db;
+        return $db;
+    }
 
     private function all () {
 

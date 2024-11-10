@@ -5,11 +5,13 @@ namespace App\Controllers;
 use Item;
 use User;
 
+
 class ItemController extends BaseController {
 
     public static function index () {
 
       $items = Item::all();
+      $users = User::all();
 
       
 
@@ -17,7 +19,9 @@ class ItemController extends BaseController {
 
         self::loadView('items/items', [
             'title' => 'Userspage',
-            "items" => $items
+            "items" => $items,
+            "users" => $users
+
 
         ]);
     }
@@ -104,13 +108,20 @@ class ItemController extends BaseController {
         public static function addItem() {
             
             $item = New Item();
+            
+
 
             $item->name = $_POST['name'];
             $item->description = $_POST['description'];
             $item->available = $_POST['available'];
             $item->price = $_POST['price'];
+            $item->owner_id = $_POST['owner_id'];
+
+          
+
     
             $succes = $item->addItem();
+           
 
             if($succes) {
                 header("Location: /items");
@@ -119,6 +130,35 @@ class ItemController extends BaseController {
             }
     
         }
+
+        public static function search() {
+            $query = $_GET['query'] ?? '';
+            $items = Item::search($query);
+            $users = User::all();
+            
+            self::loadView('items/items', [
+                'title' => 'Search Results',
+                'items' => $items,
+                'users' => $users
+            ]);
+        }
+
+        public static function filter() {
+            $availability = $_GET['availability'] ?? '';
+            if ($availability === '') {
+                $items = Item::all();
+            } else {
+                $items = Item::filterByAvailability($availability);
+            }
+            $users = User::all();
+            
+            self::loadView('items/items', [
+                'title' => 'Filtered Items',
+                'items' => $items,
+                'users' => $users
+            ]);
+        }
+        
 
 
     
