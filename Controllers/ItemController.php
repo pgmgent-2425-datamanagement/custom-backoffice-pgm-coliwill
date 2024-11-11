@@ -40,7 +40,7 @@ class ItemController extends BaseController {
         }
 
     public static function editItem() {
-            // Get the item ID from the form (or URL if needed)
+            
             $itemId = $_POST['item_id'] ?? null;
         
             if (!$itemId) {
@@ -48,7 +48,7 @@ class ItemController extends BaseController {
                 return;
             }
         
-            // Fetch the item from the database
+            
             $item = Item::find($itemId);
         
             if (!$item) {
@@ -56,19 +56,19 @@ class ItemController extends BaseController {
                 return;
             }
         
-            // Update the item object with form data
+         
             $item->name = $_POST['name'];
             $item->description = $_POST['description'];
             $item->price = $_POST['price'];
             $item->available = $_POST['available'];
             $item->owner_id = $_POST['owner_id'];
         
-            // Save the updated item to the database
+           
             $success = $item->updateItem();
         
-            // Check if the update was successful
+           
             if ($success) {
-                // Redirect to the users page after success
+              
                 header("Location: /items");
             } else {
                 echo "Something went wrong.";
@@ -76,7 +76,7 @@ class ItemController extends BaseController {
         }
 
         public static function deleteItem() {
-            // Get the item ID from the POST request
+           
             $itemId = $_POST['item_id'] ?? null;
         
             if (!$itemId) {
@@ -84,7 +84,7 @@ class ItemController extends BaseController {
                 return;
             }
         
-            // Find the item in the database
+      
             $item = Item::find($itemId);
         
             if (!$item) {
@@ -92,12 +92,11 @@ class ItemController extends BaseController {
                 return;
             }
         
-            // Delete the item from the database
+          
             $success = $item->deleteItem();
         
-            // Check if the deletion was successful
             if ($success) {
-                // Redirect to the users page after successful deletion
+                
                 header("Location: /items");
                 exit;
             } else {

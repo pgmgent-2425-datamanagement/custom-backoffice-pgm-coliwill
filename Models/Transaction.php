@@ -32,15 +32,15 @@ class Transaction extends BaseModel {
       return $stmt->fetchAll(PDO::FETCH_OBJ);
   }
 
-  // Fetch lent items for a user
+
   public static function getLentItems($user_id) {
-      // Create an instance of the Transaction class to access the non-static db property
+      
       $obj = new static();
       
-      // Access the database connection
+      
       $db = $obj->db;
 
-      // Ensure the database connection is set
+      
       if ($db === null) {
           throw new \Exception("Database connection is not set.");
       }

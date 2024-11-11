@@ -35,3 +35,4 @@ $router->get('/transactions', 'TransactionController@index');
 $router->post('/transactions/add', 'TransactionController@addTransaction');
 $router->get('/transactions/edit', 'TransactionController@GetOneTransaction');
 $router->post('/transactions/edit', 'TransactionController@editTransaction');
+

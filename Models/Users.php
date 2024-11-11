@@ -17,7 +17,7 @@ class User extends BaseModel {
     ]);
 
     if ($success) {
-        // Get the last inserted user ID
+        
         return $this->db->lastInsertId();
     }
 
